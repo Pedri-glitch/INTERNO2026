@@ -1,0 +1,163 @@
+<body>
+
+  <div class="card">
+
+    <div class="brand">
+      <span>BanEcuador</span>
+    </div>
+
+    <h1 class="title">
+      Registro del Cliente
+    </h1>
+
+    <form (ngSubmit)="continuar()">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label for="nombre">
+            Nombre Completo
+          </label>
+
+          <div class="input-wrapper">
+
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              [(ngModel)]="cliente.nombre"
+              placeholder="Ej: Pedro"
+              required
+            />
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="sueldo">
+            Sueldo <small>(mensual)</small>
+          </label>
+
+          <div class="input-wrapper">
+
+            <input
+              type="number"
+              id="sueldo"
+              name="sueldo"
+              [(ngModel)]="cliente.sueldo"
+              placeholder="2300.00"
+              min="0"
+              step="0.01"
+              required
+            />
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="cedula">
+            Cédula / Identificación
+          </label>
+
+          <div class="input-wrapper">
+
+            <input
+              type="text"
+              id="cedula"
+              name="cedula"
+              [(ngModel)]="cliente.cedula"
+              placeholder="1234567890"
+              maxlength="10"
+              required
+            />
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>
+            Tipo de Persona
+          </label>
+
+          <div class="radio-group">
+
+            <div class="radio-option">
+
+              <input
+                type="radio"
+                id="natural"
+                name="tipo_persona"
+                value="Natural"
+                [(ngModel)]="cliente.tipoPersona"
+              />
+
+              <label for="natural">
+                Natural
+              </label>
+
+            </div>
+
+            <div class="radio-option">
+
+              <input
+                type="radio"
+                id="juridica"
+                name="tipo_persona"
+                value="Jurídica"
+                [(ngModel)]="cliente.tipoPersona"
+              />
+
+              <label for="juridica">
+                Jurídica
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      @if (errorMessage) {
+
+        <p class="error-message">
+          {{ errorMessage }}
+        </p>
+
+      }
+
+      <div class="submit-container">
+
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="isLoading"
+        >
+
+          @if (isLoading) {
+
+            Guardando...
+
+          } @else {
+
+            Continuar
+
+          }
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</body>

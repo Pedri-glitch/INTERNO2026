@@ -1,0 +1,116 @@
+<body>
+
+  <div class="container">
+
+    <div class="brand">
+      <span>BanEcuador</span>
+    </div>
+
+    <h1 class="title">
+      Tipo de Crédito
+    </h1>
+
+    <div class="credit-grid">
+
+      <a
+        class="credit-card"
+        (click)="seleccionarCredito('Microcrédito', 8.60)"
+      >
+
+        <div class="image-container">
+          <img
+            src="ruta-de-tu-imagen1.jpg"
+            alt="Microcrédito"
+          >
+        </div>
+
+        <h2 class="credit-title">
+          Microcrédito
+        </h2>
+
+        <p class="credit-description">
+          Préstamo de dinero a pequeños negocios o emprendedores.
+        </p>
+
+        <span class="card-footer-btn">
+          Seleccionar →
+        </span>
+
+      </a>
+
+      <a
+        class="credit-card"
+        (click)="seleccionarCredito('Consumo', 16.77)"
+      >
+
+        <div class="image-container">
+          <img
+            src="ruta-de-tu-imagen2.jpg"
+            alt="Consumo"
+          >
+        </div>
+
+        <h2 class="credit-title">
+          Consumo
+        </h2>
+
+        <p class="credit-description">
+          Préstamo de dinero para comprar bienes, pagar servicios o cubrir gastos personales.
+        </p>
+
+        <span class="card-footer-btn">
+          Seleccionar →
+        </span>
+
+      </a>
+
+      <a
+        class="credit-card"
+        (click)="seleccionarCredito('PYME', 10.19)"
+      >
+
+        <div class="image-container">
+          <img
+            src="ruta-de-tu-imagen3.jpg"
+            alt="PYME"
+          >
+        </div>
+
+        <h2 class="credit-title">
+          PYME
+        </h2>
+
+        <p class="credit-description">
+          Préstamo de dinero a pequeñas y medianas empresas.
+        </p>
+
+        <span class="card-footer-btn">
+          Seleccionar →
+        </span>
+
+      </a>
+
+    </div>
+
+
+    @if (errorMessage) {
+
+      <p class="error-message">
+        {{ errorMessage }}
+      </p>
+
+    }
+
+
+    @if (isLoading) {
+
+<a>
+  <div class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+</a>    
+    }
+
+  </div>
+
+</body>

@@ -1,0 +1,71 @@
+<body>
+
+  <div class="card">
+
+    <div class="brand">
+      <span>BanEcuador</span>
+    </div>
+
+    <p class="welcome-subtitle">
+      Panel Principal
+    </p>
+
+    <h1 class="title">
+      Inicio
+    </h1>
+
+    <div class="action-menu">
+      
+      <button
+      type="button"
+      class="btn-action"
+      (click)="crearCliente()"
+    >
+      Crear Cliente
+    </button>
+
+      <button
+        type="button"
+        class="btn-action"
+        (click)="nuevaSimulacion()"
+      >
+        Nueva Simulación
+      </button>
+
+      <button
+        type="button"
+        class="btn-action"
+        (click)="verHistorial()"
+      >
+        Historial de Simulaciones
+      </button>
+
+    </div>
+
+    <div class="logout-container">
+
+      <button
+        class="btn-logout"
+        type="button"
+        (click)="cerrarSesion()"
+      >
+        Cerrar Sesión
+      </button>
+
+    </div>
+
+    <div class="client-info">
+
+      <span>
+        Cliente registrado
+      </span>
+
+      <strong>
+        {{ nombreCliente }}
+      </strong>
+
+    </div>
+
+  </div>
+
+</body>
