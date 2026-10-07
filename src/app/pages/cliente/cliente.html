@@ -1,163 +1,325 @@
-<body>
+<div class="cliente-container">
 
-  <div class="card">
+  <div class="container">
 
     <div class="brand">
       <span>BanEcuador</span>
     </div>
 
+
     <h1 class="title">
-      Registro del Cliente
+      Gestión de Clientes
     </h1>
 
-    <form (ngSubmit)="continuar()">
 
-      <div class="form-grid">
+    <p class="subtitle">
+      Registra nuevos clientes y administra los clientes existentes.
+    </p>
 
-        <div class="form-group">
+    <div class="section">
 
-          <label for="nombre">
-            Nombre Completo
-          </label>
+      <h2 class="section-title">
+        Registrar nuevo cliente
+      </h2>
 
-          <div class="input-wrapper">
 
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              [(ngModel)]="cliente.nombre"
-              placeholder="Ej: Pedro"
-              required
-            />
+      <form (ngSubmit)="continuar()">
 
-          </div>
+        <div class="form-grid">
 
-        </div>
+          <div class="form-group">
 
-        <div class="form-group">
+            <label for="nombre">
+              Nombre Completo
+            </label>
 
-          <label for="sueldo">
-            Sueldo <small>(mensual)</small>
-          </label>
-
-          <div class="input-wrapper">
-
-            <input
-              type="number"
-              id="sueldo"
-              name="sueldo"
-              [(ngModel)]="cliente.sueldo"
-              placeholder="2300.00"
-              min="0"
-              step="0.01"
-              required
-            />
-
-          </div>
-
-        </div>
-
-        <div class="form-group">
-
-          <label for="cedula">
-            Cédula / Identificación
-          </label>
-
-          <div class="input-wrapper">
-
-            <input
-              type="text"
-              id="cedula"
-              name="cedula"
-              [(ngModel)]="cliente.cedula"
-              placeholder="1234567890"
-              maxlength="10"
-              required
-            />
-
-          </div>
-
-        </div>
-
-        <div class="form-group">
-
-          <label>
-            Tipo de Persona
-          </label>
-
-          <div class="radio-group">
-
-            <div class="radio-option">
+            <div class="input-wrapper">
 
               <input
-                type="radio"
-                id="natural"
-                name="tipo_persona"
-                value="Natural"
-                [(ngModel)]="cliente.tipoPersona"
+                type="text"
+                id="nombre"
+                name="nombre"
+                [(ngModel)]="cliente.nombre"
+                placeholder="Ej: Pedro Cedeño"
+                required
               />
-
-              <label for="natural">
-                Natural
-              </label>
-
-            </div>
-
-            <div class="radio-option">
-
-              <input
-                type="radio"
-                id="juridica"
-                name="tipo_persona"
-                value="Jurídica"
-                [(ngModel)]="cliente.tipoPersona"
-              />
-
-              <label for="juridica">
-                Jurídica
-              </label>
 
             </div>
 
           </div>
 
+
+          <div class="form-group">
+
+            <label for="sueldo">
+              Sueldo <small>(mensual)</small>
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                type="number"
+                id="sueldo"
+                name="sueldo"
+                [(ngModel)]="cliente.sueldo"
+                placeholder="2300.00"
+                min="0"
+                step="0.01"
+                required
+              />
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="cedula">
+              Cédula / Identificación
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                type="text"
+                id="cedula"
+                name="cedula"
+                [(ngModel)]="cliente.cedula"
+                placeholder="1234567890"
+                maxlength="10"
+                required
+              />
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>
+              Tipo de Persona
+            </label>
+
+
+            <div class="radio-group">
+
+              <div class="radio-option">
+
+                <input
+                  type="radio"
+                  id="natural"
+                  name="tipo_persona"
+                  value="Natural"
+                  [(ngModel)]="cliente.tipoPersona"
+                />
+
+                <label for="natural">
+                  Natural
+                </label>
+
+              </div>
+
+
+              <div class="radio-option">
+
+                <input
+                  type="radio"
+                  id="juridica"
+                  name="tipo_persona"
+                  value="Jurídica"
+                  [(ngModel)]="cliente.tipoPersona"
+                />
+
+                <label for="juridica">
+                  Jurídica
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
+
+
+        @if (errorMessage) {
+
+          <p class="error-message">
+            {{ errorMessage }}
+          </p>
+
+        }
+
+
+        <div class="submit-container">
+
+          <button
+            type="submit"
+            class="btn-submit"
+            [disabled]="isLoading"
+          >
+
+            @if (isLoading) {
+
+              Guardando...
+
+            } @else {
+
+              Crear cliente
+
+            }
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <div class="section clientes-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <h2 class="section-title">
+            Clientes existentes
+          </h2>
+
+          <p class="section-description">
+            Clientes registrados en el sistema.
+          </p>
+
+        </div>
+
+        <span class="contador">
+          {{ clientes.length }}
+        </span>
 
       </div>
 
-      @if (errorMessage) {
 
-        <p class="error-message">
-          {{ errorMessage }}
-        </p>
+      @if (isLoadingClientes) {
+
+        <div class="mensaje">
+
+          <p>
+            Cargando clientes...
+          </p>
+
+        </div>
 
       }
 
-      <div class="submit-container">
 
-        <button
-          type="submit"
-          class="btn-submit"
-          [disabled]="isLoading"
-        >
+      @if (!isLoadingClientes && clientes.length === 0) {
 
-          @if (isLoading) {
+        <div class="mensaje">
 
-            Guardando...
+          <h3>
+            No hay clientes registrados.
+          </h3>
 
-          } @else {
+          <p>
+            Los clientes que registres aparecerán aquí.
+          </p>
 
-            Continuar
+        </div>
+
+      }
+
+
+      @if (!isLoadingClientes && clientes.length > 0) {
+
+        <div class="clientes-list">
+
+          @for (cliente of clientes; track cliente.id) {
+
+            <div class="cliente-card">
+
+
+              <div class="cliente-info">
+
+                <div class="cliente-main">
+
+                  <h3>
+                    {{ cliente.nombre || 'Nombre no disponible' }}
+                  </h3>
+
+                  <span class="tipo-persona">
+                    {{ cliente.tipoPersona || 'No especificado' }}
+                  </span>
+
+                </div>
+
+
+                <div class="datos-cliente">
+
+                  <div class="dato">
+
+                    <strong>
+                      Cédula
+                    </strong>
+
+                    <span>
+                      {{ cliente.cedula || 'No disponible' }}
+                    </span>
+
+                  </div>
+
+
+                  <div class="dato">
+
+                    <strong>
+                      Sueldo mensual
+                    </strong>
+
+                    <span>
+                      ${{ cliente.sueldo || 0 }}
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="btn-delete"
+                (click)="eliminarCliente(cliente.id)"
+              >
+                Borrar
+              </button>
+
+
+            </div>
 
           }
 
-        </button>
+        </div>
 
-      </div>
+      }
 
-    </form>
+    </div>
+
+    <div class="cliente-footer">
+
+      <button
+        type="button"
+        class="btn-secondary"
+        (click)="volverInicio()"
+      >
+        Volver al Inicio
+      </button>
+
+    </div>
 
   </div>
 
-</body>
+</div>

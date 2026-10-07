@@ -1,46 +1,110 @@
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BanEcuador - Sistema de Amortización</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-</head>
 <body>
 
   <div class="container">
-    <div class="brand"><span>BanEcuador</span></div>
-    <h1 class="title">Sistema de Amortización</h1>
+
+    <div class="brand">
+      <span>BanEcuador</span>
+    </div>
+
+    <h1 class="title">
+      Sistema de Amortización
+    </h1>
 
     <div class="amortization-grid">
-      
-      <a href="simulador-frances.html" class="amortization-card">
+
+      <a
+        class="amortization-card"
+        (click)="seleccionarAmortizacion(0)"
+      >
+
         <div class="image-container">
-          <img src="frances.jpg" alt="Sistema Francés">
+
+          <img
+            src="https://www.image2url.com/r2/default/images/1790380340568-0f92ad9e-3194-42d7-be06-caade46483ff.png"
+            alt="Sistema Francés"
+          >
+
         </div>
-        <h2 class="card-title">Francés</h2>
+
+        <h2 class="card-title">
+          Francés
+        </h2>
+
         <p class="card-description">
-          Método para pagar un préstamo mediante cuotas periódicas constantes. La cuota que se paga cada mes es siempre la misma.
+          Método para pagar un préstamo mediante cuotas periódicas constantes.
+          La cuota que se paga cada mes es siempre la misma.
         </p>
-        <span class="card-footer-btn">Seleccionar &rarr;</span>
+
+        <span class="card-footer-btn">
+          Seleccionar →
+        </span>
+
       </a>
 
-      <a href="simulador-aleman.html" class="amortization-card">
+      <a
+        class="amortization-card"
+        (click)="seleccionarAmortizacion(1)"
+      >
+
         <div class="image-container">
-          <img src="aleman.jpg" alt="Sistema Alemán">
+
+          <img
+            src="https://www.image2url.com/r2/default/images/1790380266020-56ddc1aa-f059-4082-81e9-f30d72ff0f4e.png"
+            alt="Sistema Alemán"
+          >
+
         </div>
-        <h2 class="card-title">Alemán</h2>
+
+        <h2 class="card-title">
+          Alemán
+        </h2>
+
         <p class="card-description">
-          Método para pagar un préstamo donde la cuota de capital es fija, los intereses bajan mes a mes y las cuotas totales son variables y decrecientes.
+          Método para pagar un préstamo donde la cuota de capital es fija,
+          los intereses bajan mes a mes y las cuotas totales son variables
+          y decrecientes.
         </p>
-        <span class="card-footer-btn">Seleccionar &rarr;</span>
+
+        <span class="card-footer-btn">
+          Seleccionar →
+        </span>
+
       </a>
-      <div style="text-align: center; margin-top: 28px;">
-        <a href="credito" class="btn-back">&larr; Volver al paso anterior</a>
-      </div>
+
     </div>
+
+    @if (errorMessage) {
+
+      <p class="error-message">
+        {{ errorMessage }}
+      </p>
+
+    }
+
+    <div
+      style="text-align: center; margin-top: 28px;"
+    >
+
+      <button
+        type="button"
+        class="btn-back"
+        (click)="volver()"
+      >
+        ← Volver al paso anterior
+      </button>
+
+    </div>
+
+    @if (isLoading) {
+
+      <div class="loading-overlay">
+
+        <div class="loading-spinner"></div>
+
+      </div>
+
+    }
+
   </div>
 
 </body>

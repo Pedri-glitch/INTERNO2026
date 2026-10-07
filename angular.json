@@ -17,17 +17,17 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "styles": [
+              "src/styles.css"
+            ],
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "src/styles.css"
-            ]
+  {
+    "glob": "**/*",
+    "input": "public"
+  }
+]
           },
           "configurations": {
             "production": {

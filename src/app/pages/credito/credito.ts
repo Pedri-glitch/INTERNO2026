@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirestoreService } from '../../../services/firestore.service';
+
 
 @Component({
   selector: 'app-credito',
@@ -9,72 +10,77 @@ import { FirestoreService } from '../../../services/firestore.service';
   styleUrl: './credito.css',
 })
 export class Credito {
+onFileSelected($event: Event) {
+throw new Error('Method not implemented.');
+}
+subirImagen() {
+throw new Error('Method not implemented.');
+}
 
-  firebase = inject(FirestoreService);
-  router = inject(Router);
-
-  isLoading: boolean = false;
+  volverInicio(): void {
+    this.router.navigate(['/inicio']);
+  }
 
   errorMessage: string = '';
+  isLoading: boolean = false;
 
+  constructor(
+    private router: Router
+  ) {}
 
-  async seleccionarCredito(
-    tipoCredito: string,
-    tasaAnual: number
-  ): Promise<void> {
+  tipoDeCredito(opcion: number): void {
 
-    this.isLoading = true;
+    localStorage.removeItem('simulacionHistorial');
     this.errorMessage = '';
+    this.isLoading = true;
 
-    try {
+    const creditos = [
 
-      const clienteId = localStorage.getItem('cliente_id');
+      {
+        nombre: 'Microcrédito',
+        tasaAnual: 8.60
+      },
 
-      const documento = await this.firebase.add(
-        'Creditos',
-        {
-          cliente_id: clienteId,
-          tipoCredito: tipoCredito,
-          tasaAnual: tasaAnual,
-          fechaSeleccion: new Date()
-        }
-      );
+      {
+        nombre: 'Consumo',
+        tasaAnual: 16.77
+      },
 
+      {
+        nombre: 'PYME',
+        tasaAnual: 10.19
+      }
 
-      console.log(
-        'Crédito seleccionado y guardado:',
-        documento.id
-      );
+    ];
 
-      localStorage.setItem(
-        'simulacion_id',
-        documento.id
-      );
+    const creditoSeleccionado = creditos[opcion];
 
-      await this.router.navigate([
-        '/datos-credito'
-      ]);
-
-
-    } catch (error) {
-
-      console.error(
-        'Error al guardar el crédito:',
-        error
-      );
-
-      this.errorMessage =
-        'No se pudo guardar el tipo de crédito.';
-
-    } finally {
+    if (!creditoSeleccionado) {
 
       this.isLoading = false;
 
-this.router.navigate([
-      '/amortizacion'
-])
+      this.errorMessage =
+        'No se pudo seleccionar el tipo de crédito.';
+
+      return;
+
     }
+
+    localStorage.setItem(
+      'creditoSeleccionado',
+      JSON.stringify(creditoSeleccionado)
+    );
+
+    console.log(
+      'Crédito guardado en localStorage:',
+      creditoSeleccionado
+    );
+
+    this.router.navigate([
+      '/amortizacion'
+    ]);
 
   }
 
 }
+

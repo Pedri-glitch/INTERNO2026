@@ -15,14 +15,14 @@
     </h1>
 
     <div class="action-menu">
-      
+
       <button
-      type="button"
-      class="btn-action"
-      (click)="crearCliente()"
-    >
-      Crear Cliente
-    </button>
+        type="button"
+        class="btn-action"
+        (click)="crearCliente()"
+      >
+        Crear Cliente
+      </button>
 
       <button
         type="button"
@@ -54,17 +54,21 @@
 
     </div>
 
-    <div class="client-info">
+    @if (hayCliente) {
 
-      <span>
-        Cliente registrado
-      </span>
+      <div class="client-info">
 
-      <strong>
-        {{ nombreCliente }}
-      </strong>
+        <span>
+          Cliente registrado
+        </span>
 
-    </div>
+        <strong>
+          {{ nombreCliente }}
+        </strong>
+
+      </div>
+
+    }
 
   </div>
 

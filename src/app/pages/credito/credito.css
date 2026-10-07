@@ -134,6 +134,15 @@
       gap: 6px;
     }
 
+    .btn-back {
+      text-align: center; margin-top: 28px;
+      display: inline-block;
+      color: #64748b;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
     @media (max-width: 768px) {
       .container {
         padding: 30px 20px;

@@ -1,99 +1,395 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BanEcuador - Simulador de Crédito</title>
-  
-  <!-- Fuente Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-</head>
 <body>
 
+
+
   <div class="container">
-    <div class="brand"><span>BanEcuador</span></div>
-    <h1 class="title">Simulador</h1>
-    <p class="subtitle-alert">El monto solicitado no puede exceder más del 45% del salario mensual</p>
 
-    <form>
-      <!-- Monto Solicitar -->
+
+    <div class="brand">
+      <span>BanEcuador</span>
+    </div>
+
+
+    <h1 class="title">
+      Simulador
+    </h1>
+
+    @if (credito) {
+
+      <div class="selected-info">
+
+        <p>
+          <strong>Tipo de crédito:</strong>
+          {{ credito.nombre }}
+        </p>
+
+        <p>
+          <strong>Tasa anual:</strong>
+          {{ credito.tasaAnual }}%
+        </p>
+
+        <p>
+          <strong>Sistema:</strong>
+          {{ amortizacion.nombre }}
+        </p>
+
+      </div>
+
+    }
+
+    <div class="form-group">
+
+      <label
+        class="form-label"
+        for="cliente"
+      >
+        Seleccionar Cliente
+      </label>
+
+
+      <select
+        id="cliente"
+        name="cliente"
+        class="client-select"
+        [(ngModel)]="clienteSeleccionadoId"
+        (change)="seleccionarCliente()"
+      >
+
+        <option value="">
+          Selecciona un cliente
+        </option>
+
+
+        @for (
+          usuario of users;
+          track usuario.id
+        ) {
+
+          <option
+            [value]="usuario.id"
+          >
+
+            {{ usuario.nombre }}
+
+          </option>
+
+        }
+
+      </select>
+
+      @if (cliente) {
+
+        <div class="selected-client-info">
+          
+          <p>
+            <strong>Sueldo mensual:</strong>
+            ${{ cliente.sueldo }}
+          </p>
+
+      
+        </div>
+
+      }
+
+    </div>
+
+    <p class="subtitle-alert">
+
+      El monto solicitado no puede exceder
+      más del 45% del salario mensual
+
+    </p>
+
+    <form (ngSubmit)="calcular()">
+
       <div class="form-group">
-        <label class="form-label" for="monto">Monto Solicitado</label>
+
+        <label
+          class="form-label"
+          for="monto"
+        >
+
+          Monto Solicitado
+
+        </label>
+
+
         <div class="input-amount-wrapper">
-          <span class="currency-symbol">$</span>
-          <input type="number" id="monto" class="input-amount" value="1000.00" step="100" min="100" required />
+
+          <span class="currency-symbol">
+            $
+          </span>
+
+
+          <input
+            type="number"
+            id="monto"
+            name="monto"
+            class="input-amount"
+            [(ngModel)]="monto"
+            step="100"
+            min="100"
+            required
+          >
+
         </div>
+
       </div>
 
-      <!-- Plazo -->
+
       <div class="form-group">
-        <label class="form-label">Plazo <span>(en años)</span></label>
+
+        <label class="form-label">
+
+          Plazo
+          <span>(en años)</span>
+
+        </label>
+
+
         <div class="selector-grid">
+
+
           <div class="selector-item">
-            <input type="radio" id="plazo1" name="plazo" value="1" checked>
-            <label for="plazo1">1</label>
+
+            <input
+              type="radio"
+              id="plazo1"
+              name="plazo"
+              [value]="1"
+              [(ngModel)]="plazo"
+            >
+
+            <label for="plazo1">
+              1
+            </label>
+
           </div>
+
+
           <div class="selector-item">
-            <input type="radio" id="plazo2" name="plazo" value="2">
-            <label for="plazo2">2</label>
+
+            <input
+              type="radio"
+              id="plazo2"
+              name="plazo"
+              [value]="2"
+              [(ngModel)]="plazo"
+            >
+
+            <label for="plazo2">
+              2
+            </label>
+
           </div>
+
+
           <div class="selector-item">
-            <input type="radio" id="plazo3" name="plazo" value="3">
-            <label for="plazo3">3</label>
+
+            <input
+              type="radio"
+              id="plazo3"
+              name="plazo"
+              [value]="3"
+              [(ngModel)]="plazo"
+            >
+
+            <label for="plazo3">
+              3
+            </label>
+
           </div>
+
+
           <div class="selector-item">
-            <input type="radio" id="plazo4" name="plazo" value="4">
-            <label for="plazo4">4</label>
+
+            <input
+              type="radio"
+              id="plazo4"
+              name="plazo"
+              [value]="4"
+              [(ngModel)]="plazo"
+            >
+
+            <label for="plazo4">
+              4
+            </label>
+
           </div>
+
+
           <div class="selector-item">
-            <input type="radio" id="plazo5" name="plazo" value="5">
-            <label for="plazo5">5</label>
+
+            <input
+              type="radio"
+              id="plazo5"
+              name="plazo"
+              [value]="5"
+              [(ngModel)]="plazo"
+            >
+
+            <label for="plazo5">
+              5
+            </label>
+
           </div>
+
         </div>
+
       </div>
 
-      <!-- Forma de Pago -->
+
       <div class="form-group">
-        <label class="form-label">Forma de Pago</label>
+
+        <label class="form-label">
+          Forma de Pago
+        </label>
+
+
         <div class="payment-grid">
+
+
           <div class="payment-item">
-            <input type="radio" id="pago1" name="forma_pago" value="mensual" checked>
-            <label for="pago1">Mensual (cada mes)</label>
+
+            <input
+              type="radio"
+              id="pago1"
+              name="forma_pago"
+              value="mensual"
+              [(ngModel)]="formaPago"
+            >
+
+            <label for="pago1">
+              Mensual (cada mes)
+            </label>
+
           </div>
+
+
           <div class="payment-item">
-            <input type="radio" id="pago2" name="forma_pago" value="bimestral">
-            <label for="pago2">Bimestral (cada 2 meses)</label>
+
+            <input
+              type="radio"
+              id="pago2"
+              name="forma_pago"
+              value="bimestral"
+              [(ngModel)]="formaPago"
+            >
+
+            <label for="pago2">
+              Bimestral (cada 2 meses)
+            </label>
+
           </div>
+
+
           <div class="payment-item">
-            <input type="radio" id="pago3" name="forma_pago" value="trimestral">
-            <label for="pago3">Trimestral (cada 3 meses)</label>
+
+            <input
+              type="radio"
+              id="pago3"
+              name="forma_pago"
+              value="trimestral"
+              [(ngModel)]="formaPago"
+            >
+
+            <label for="pago3">
+              Trimestral (cada 3 meses)
+            </label>
+
           </div>
+
+
           <div class="payment-item">
-            <input type="radio" id="pago4" name="forma_pago" value="semestral">
-            <label for="pago4">Semestral (cada 6 meses)</label>
+
+            <input
+              type="radio"
+              id="pago4"
+              name="forma_pago"
+              value="semestral"
+              [(ngModel)]="formaPago"
+            >
+
+            <label for="pago4">
+              Semestral (cada 6 meses)
+            </label>
+
           </div>
+
+
           <div class="payment-item">
-            <input type="radio" id="pago5" name="forma_pago" value="anual">
-            <label for="pago5">Anual (cada año)</label>
+
+            <input
+              type="radio"
+              id="pago5"
+              name="forma_pago"
+              value="anual"
+              [(ngModel)]="formaPago"
+            >
+
+            <label for="pago5">
+              Anual (cada año)
+            </label>
+
           </div>
+
         </div>
+
       </div>
 
-      <!-- Botón Calcular -->
+      @if (errorMessage) {
+
+        <p class="error-message">
+
+          {{ errorMessage }}
+
+        </p>
+
+      }
+
       <div style="text-align: center;">
-        <button type="submit" class="btn-submit">Calcular</button>
+
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="isLoading"
+        >
+
+          @if (isLoading) {
+
+            Calculando...
+
+          } @else {
+
+            Calcular
+
+          }
+
+        </button>
+
       </div>
+
     </form>
 
-    <!-- Botón Regresar -->
-    <div style="text-align: center; margin-top: 24px;">
-      <a href="javascript:history.back()" class="btn-back">&larr; Volver al paso anterior</a>
+    <div
+      style="
+        text-align: center;
+        margin-top: 24px;
+      "
+    >
+
+      <button
+        type="button"
+        class="btn-back"
+        (click)="volver()"
+      >
+
+        ← Volver al paso anterior
+
+      </button>
+
     </div>
 
   </div>
 
 </body>
-</html>

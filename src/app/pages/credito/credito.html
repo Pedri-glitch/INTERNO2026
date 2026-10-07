@@ -14,14 +14,14 @@
 
       <a
         class="credit-card"
-        (click)="seleccionarCredito('Microcrédito', 8.60)"
+        (click)="tipoDeCredito(0)"
       >
 
         <div class="image-container">
-          <img
-            src="ruta-de-tu-imagen1.jpg"
-            alt="Microcrédito"
-          >
+
+          <img src="https://www.image2url.com/r2/default/images/1790379337795-be781cab-a1d5-4986-b31d-38008081e0dd.png"
+            alt="Microcrédito">
+
         </div>
 
         <h2 class="credit-title">
@@ -40,14 +40,16 @@
 
       <a
         class="credit-card"
-        (click)="seleccionarCredito('Consumo', 16.77)"
+        (click)="tipoDeCredito(1)"
       >
 
         <div class="image-container">
+
           <img
-            src="ruta-de-tu-imagen2.jpg"
+            src="https://www.image2url.com/r2/default/images/1790379658706-dd536fbb-e9cf-47b7-8d17-0c5bf49b0c1b.png"
             alt="Consumo"
           >
+
         </div>
 
         <h2 class="credit-title">
@@ -66,14 +68,16 @@
 
       <a
         class="credit-card"
-        (click)="seleccionarCredito('PYME', 10.19)"
+        (click)="tipoDeCredito(2)"
       >
 
         <div class="image-container">
+
           <img
-            src="ruta-de-tu-imagen3.jpg"
+            src="https://www.image2url.com/r2/default/images/1790379699897-8660ee20-aa6e-44ba-bc4d-b1b1e192503d.png"
             alt="PYME"
           >
+
         </div>
 
         <h2 class="credit-title">
@@ -92,6 +96,17 @@
 
     </div>
 
+    <div class="credito-footer">
+
+      <button
+        type="button"
+        class="btn-back"
+        (click)="volverInicio()"
+      >
+        ←Volver al Inicio
+      </button>
+
+    </div>
 
     @if (errorMessage) {
 
@@ -101,14 +116,14 @@
 
     }
 
-
     @if (isLoading) {
 
-<a>
-  <div class="loading-overlay">
-    <div class="loading-spinner"></div>
-  </div>
-</a>    
+      <div class="loading-overlay">
+
+        <div class="loading-spinner"></div>
+
+      </div>
+
     }
 
   </div>

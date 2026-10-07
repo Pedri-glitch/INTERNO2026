@@ -28,7 +28,7 @@ export class Register {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // 1. Comprobar campos vacíos
+
     if (
       !this.name ||
       !this.email ||
@@ -39,13 +39,13 @@ export class Register {
       return;
     }
 
-    // 2. Comprobar contraseñas
+
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Las contraseñas no coinciden.';
       return;
     }
 
-    // 3. Comprobar longitud de contraseña
+
     if (this.password.length < 6) {
       this.errorMessage =
         'La contraseña debe tener al menos 6 caracteres.';
@@ -54,10 +54,10 @@ export class Register {
 
     try {
 
-      // 4. Obtener usuarios existentes
+
       const usuarios = await this.firebase.getAll<any>('Login');
 
-      // 5. Comprobar si el correo ya existe
+
       const usuarioExistente = usuarios.find(
         usuario =>
           usuario.Email?.toLowerCase() ===
@@ -70,19 +70,19 @@ export class Register {
         return;
       }
 
-      // 6. Crear nuevo usuario
+
       await this.firebase.add('Login', {
         Name: this.name,
         Email: this.email,
         Password: this.password
       });
 
-      // 7. Mostrar mensaje
+
       this.successMessage =
         'Cuenta creada correctamente.';
 
-      // 8. Esperar un momento y regresar al Login
-      setTimeout(() => {
+
+        setTimeout(() => {
         this.router.navigate(['/login']);
       }, 1000);
 

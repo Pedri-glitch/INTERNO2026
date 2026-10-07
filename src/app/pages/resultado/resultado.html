@@ -1,54 +1,242 @@
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BanEcuador - Resultado Simulador de Crédito</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-</head>
+
 <body>
 
   <div class="container">
-    <div class="brand"><span>BanEcuador</span></div>
-    <h1 class="title">Resultado Simulador de Crédito</h1>
+
+    <div class="brand">
+      <span>BanEcuador</span>
+    </div>
+
+    <h1 class="title">
+      Resultado Simulador de Crédito
+    </h1>
 
     <div class="summary-card">
-      <div class="summary-item"><strong>Tipo de crédito:</strong> <span id="res-tipo-credito">--</span></div>
-      <div class="summary-item"><strong>Plazo:</strong> <span id="res-plazo">--</span></div>
-      <div class="summary-item"><strong>Sistema de amortización:</strong> <span id="res-sistema">--</span></div>
-      <div class="summary-item"><strong>Forma de pago:</strong> <span id="res-forma-pago">--</span></div>
-      <div class="summary-item"><strong>Tipo de persona:</strong> <span id="res-persona">--</span></div>
-      <div class="summary-item"><strong>Monto solicitado:</strong> <span id="res-monto">--</span></div>
-      <div class="summary-item"><strong>Sector económico:</strong> <span id="res-sector">--</span></div>
-      <div class="summary-item"><strong>Fecha:</strong> <span id="res-fecha">--</span></div>
+
+      <div class="summary-item">
+
+        <strong>Tipo de crédito:</strong>
+
+        <span>
+          {{ credito?.nombre || '--' }}
+        </span>
+
+      </div>
+
+
+      <div class="summary-item">
+
+        <strong>Plazo:</strong>
+
+        <span>
+          {{ simulacion?.plazoAnios || '--' }} años
+        </span>
+
+      </div>
+
+
+      <div class="summary-item">
+
+        
+
+        <strong>Sistema de amortización:</strong>
+
+        <span>
+          {{ amortizacion?.nombre || '--' }}
+        </span>
+
+      </div>
+
+
+      <div class="summary-item">
+
+        <strong>Forma de pago:</strong>
+
+        <span>
+          {{ simulacion?.formaPago || '--' }}
+        </span>
+
+
+      </div>
+
+
+      <div class="summary-item">
+
+        <strong>Monto solicitado:</strong>
+
+        <span>
+          ${{ simulacion?.monto?.toFixed(2) || '0.00' }}
+        </span>
+
+      </div>
+
+
+      <div class="summary-item">
+
+        <strong>Fecha:</strong>
+
+        <span>
+          {{ fecha }}
+        </span>
+
+      </div>
+
+    <div class="summary-item">
+
+      <strong>Cliente:</strong>
+
+      <span>
+        {{ cliente?.nombre || '--' }}
+      </span>
+
     </div>
+
+    <div class="summary-item">
+
+      <strong>tipo de persona:</strong>
+
+      <span>
+        {{ cliente.tipoPersona }} 
+      </span>
+      
+</div>
+
+<div class="summary-item">
+
+  <strong>Cedula:</strong>
+
+  <span>
+    {{ cliente.cedula }} 
+  </span>
+  
+</div>
 
     <div class="table-responsive">
+
       <table class="results-table">
+
         <thead>
+
           <tr>
-            <th>Periodo</th>
-            <th>Saldo</th>
-            <th>Capital</th>
-            <th>Interés</th>
-            <th>Cuota</th>
+
+            <th>
+              Periodo
+            </th>
+
+            <th>
+              Saldo
+            </th>
+
+            <th>
+              Capital
+            </th>
+
+            <th>
+              Interés
+            </th>
+
+            <th>
+              Cuota
+            </th>
+
           </tr>
+
         </thead>
-        <tbody id="tabla-amortizacion-body">
-          <tr class="empty-row">
-            <td colspan="5">No hay resultados calculados disponibles.</td>
-          </tr>
+
+
+        <tbody>
+
+          @if (tablaAmortizacion.length > 0) {
+
+            @for (
+              fila of tablaAmortizacion;
+              track fila.periodo
+            ) {
+
+              <tr>
+
+                <td>
+                  {{ fila.periodo }}
+                </td>
+
+
+                <td>
+                  ${{ fila.saldo.toFixed(2) }}
+                </td>
+
+
+                <td>
+                  ${{ fila.capital.toFixed(2) }}
+                </td>
+
+
+                <td>
+                  ${{ fila.interes.toFixed(2) }}
+                </td>
+
+
+                <td>
+                  ${{ fila.cuota.toFixed(2) }}
+                </td>
+
+              </tr>
+
+            }
+
+          }
+
+          @else {
+
+            <tr class="empty-row">
+
+              <td colspan="5">
+                No hay resultados calculados disponibles.
+              </td>
+
+            </tr>
+
+          }
+
         </tbody>
+
       </table>
+
     </div>
 
+
     <div class="actions-wrapper">
-      <button class="btn btn-primary" onclick="window.print()">Imprimir PDF</button>
-      <a href="javascript:history.back()" class="btn btn-secondary">Volver</a>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="imprimir()"
+      >
+        Imprimir PDF
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="volver()"
+      >
+        Volver
+      </button>
+
+      @if (!modoHistorial) {
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="guardar()"
+        >
+          Guardar
+        </button>
+      
+      }
+      
     </div>
 
   </div>
 
-</body>
+ </div>

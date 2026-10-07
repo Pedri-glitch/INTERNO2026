@@ -13,8 +13,39 @@ body {
   background: linear-gradient(135deg, #0b786c 0%, #009688 50%, #025950 100%);
   padding: 20px;
 }
+.client-select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  background: white;
+}
 
-/* Contenedor Principal con Transparencia/Glassmorphism */
+.client-select:focus {
+  outline: none;
+  border-color: #1f7a4d;
+  box-shadow: 0 0 0 4px rgba(31, 122, 77, 0.12);
+}
+
+.client-select option {
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.selected-client-info {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 10px;
+  background: #f4f8f6;
+}
+
+.selected-client-info p {
+  margin: 6px 0;
+}
+
 .container {
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
@@ -39,7 +70,7 @@ body {
   border-top-right-radius: 20px;
 }
 
-/* Encabezado */
+
 .brand {
   font-size: 1.2rem;
   font-weight: 700;
@@ -76,7 +107,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* Estructura del Formulario */
+
 .form-group {
   margin-bottom: 24px;
   text-align: center;
@@ -99,7 +130,7 @@ body {
   text-transform: none;
 }
 
-/* Input del Monto */
+
 .input-amount-wrapper {
   position: relative;
   max-width: 320px;
@@ -135,7 +166,7 @@ body {
   box-shadow: 0 0 0 4px rgba(11, 120, 108, 0.12);
 }
 
-/* Opciones de Plazo (Botones de Selección) */
+
 .selector-grid {
   display: flex;
   justify-content: center;
@@ -177,7 +208,7 @@ body {
   color: #ffffff;
 }
 
-/* Opciones de Forma de Pago */
+
 .payment-grid {
   display: flex;
   justify-content: center;
@@ -218,7 +249,7 @@ body {
   color: #ffffff;
 }
 
-/* Botón Calcular */
+
 .btn-submit {
   width: 100%;
   max-width: 260px;
@@ -242,7 +273,7 @@ body {
   box-shadow: 0 8px 24px rgba(11, 120, 108, 0.4);
 }
 
-/* Botón Regresar */
+
 .btn-back {
   display: inline-block;
   color: #64748b;

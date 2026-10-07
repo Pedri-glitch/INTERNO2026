@@ -1,1 +1,207 @@
-<p>historial works!</p>
+<div class="historial-container">
+
+  <div class="container">
+
+    <div class="brand">
+      <span>BanEcuador</span>
+    </div>
+
+
+    <h1 class="title">
+      Historial de simulaciones
+    </h1>
+
+
+    <p class="subtitle">
+      Consulta las simulaciones de crédito que has guardado.
+    </p>
+
+
+    @if (isLoading) {
+
+      <div class="mensaje">
+
+        <p>
+          Cargando simulaciones...
+        </p>
+
+      </div>
+
+    }
+
+
+    @if (!isLoading && simulaciones.length === 0 && !errorMessage) {
+
+      <div class="mensaje">
+
+        <h2>
+          No tienes simulaciones guardadas.
+        </h2>
+
+        <p>
+          Cuando guardes una simulación, aparecerá aquí.
+        </p>
+
+      </div>
+
+    }
+
+
+    <div class="history-list">
+
+      @for (simulacion of simulaciones; track simulacion.id) {
+
+        <div class="simulacion-card">
+
+          <div class="simulacion-header">
+
+            <h2>
+              {{ simulacion.credito?.nombre || 'Simulación de crédito' }}
+            </h2>
+
+            <span class="fecha">
+              {{ simulacion.fecha || 'Fecha no disponible' }}
+            </span>
+
+          </div>
+
+
+          <div class="simulacion-info">
+
+            <div class="info-item">
+
+              <strong>
+                Cliente
+              </strong>
+
+              <span>
+                {{ simulacion.cliente?.nombre || 'No disponible' }}
+              </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <strong>
+                Tipo de crédito
+              </strong>
+
+              <span>
+                {{ simulacion.credito?.nombre || 'No disponible' }}
+              </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <strong>
+                Monto solicitado
+              </strong>
+
+              <span>
+                ${{ simulacion.simulacion?.monto || 0 }}
+              </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <strong>
+                Plazo
+              </strong>
+
+              <span>
+                {{ simulacion.simulacion?.plazoAnios || 0 }}
+                años
+              </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <strong>
+                Forma de pago
+              </strong>
+
+              <span>
+                {{ simulacion.simulacion?.formaPago || 'No disponible' }}
+              </span>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <strong>
+                Amortización
+              </strong>
+
+              <span>
+                {{ simulacion.amortizacion?.nombre || 'No disponible' }}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="simulacion-actions">
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="verSimulacion(simulacion)"
+            >
+              Ver simulación
+            </button>
+
+
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="eliminarSimulacion(simulacion.id)"
+            >
+              Borrar
+            </button>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+
+    @if (errorMessage) {
+
+      <div class="mensaje error">
+
+        <p>
+          {{ errorMessage }}
+        </p>
+
+      </div>
+
+    }
+
+
+    <div class="historial-footer">
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="volverInicio()"
+      >
+        Volver al Inicio
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

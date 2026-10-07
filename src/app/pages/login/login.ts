@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -22,6 +22,8 @@ import { FirestoreService } from '../../../services/firestore.service';
   styleUrl: './login.css',
 })
 export class Login {
+
+  cdr = inject(ChangeDetectorRef)
 
   firebase = inject(FirestoreService);
 
@@ -147,6 +149,9 @@ export class Login {
     
     finally {
       this.cargando = false;
+
+      this.cdr.detectChanges();
+
     }
 
   }

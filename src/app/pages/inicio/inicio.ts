@@ -9,27 +9,35 @@ import { Router } from '@angular/router';
 })
 export class Inicio implements OnInit {
 
-  nombreCliente: string = 'Cliente';
+  nombreCliente: string = '';
+
+  hayCliente: boolean = false;
 
 
   constructor(private router: Router) {}
 
 
   ngOnInit(): void {
-    window.localStorage.setItem("nombre", "pedro")
-    let test = window.localStorage.getItem("nombre")
-    console.log(test)
+    
 
     const datosCliente =
       localStorage.getItem('cliente');
+
 
     if (datosCliente) {
 
       const cliente =
         JSON.parse(datosCliente);
 
-      this.nombreCliente =
-        cliente.nombre || 'Cliente';
+      if (cliente && cliente.nombre) {
+
+        this.nombreCliente =
+          cliente.nombre;
+
+        this.hayCliente =
+          true;
+
+      }
 
     }
 
@@ -40,7 +48,7 @@ export class Inicio implements OnInit {
     this.router.navigate([
       '/cliente'
     ]);
-  
+
   }
 
   nuevaSimulacion(): void {
@@ -63,6 +71,10 @@ export class Inicio implements OnInit {
 
     localStorage.removeItem('cliente');
     localStorage.removeItem('cliente_id');
+
+    localStorage.removeItem('creditoSeleccionado');
+    localStorage.removeItem('amortizacionSeleccionada');
+    localStorage.removeItem('datosSimulacion');
 
     this.router.navigate([
       '/login'
